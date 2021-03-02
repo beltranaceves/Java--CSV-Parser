@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Estado_Numeros.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;DS-11-01-PD&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">ejercicio1</a> &gt; <span class="el_source">Estado_Numeros.java</span></div><h1>Estado_Numeros.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ejercicio1;
+
+import java.util.List;
+
+/**
+ *
+ * @author Beltran
+ */
+public class Estado_Numeros extends CSV_Estado {
+<span class="fc" id="L15">    private static final Estado_Numeros instancia = new Estado_Numeros();</span>
+    
+<span class="fc" id="L17">    private Estado_Numeros() {}</span>
+    
+    public static Estado_Numeros getInstancia() {
+<span class="fc" id="L20">        return instancia;</span>
+    }
+    
+    @Override
+    public void avanzar(String input, int index, List&lt;Field&gt; listado, CSV csv) {
+<span class="fc" id="L25">        StringBuffer buffer = new StringBuffer();</span>
+<span class="fc" id="L26">        char aux = input.charAt(index);</span>
+
+<span class="pc bpc" id="L28" title="2 of 6 branches missed.">        while (Character.isDigit(aux) &amp;&amp; !esSeparador(aux) &amp;&amp; index &lt; input.length()) {</span>
+<span class="fc" id="L29">            aux = input.charAt(index);</span>
+<span class="fc" id="L30">            buffer.append(aux);</span>
+<span class="fc" id="L31">            index++;</span>
+<span class="fc" id="L32">            csv.aumentarIndice();</span>
+        }
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (esSeparador(aux)) {</span>
+<span class="fc" id="L35">            buffer.deleteCharAt(buffer.length() - 1);</span>
+<span class="fc" id="L36">            csv.lista.add(new NumberField(Integer.parseInt(buffer.toString())));</span>
+<span class="fc" id="L37">            csv.setEstado(Estado_Inicial.getInstancia());</span>
+<span class="fc" id="L38">            csv.Interpretar(input);</span>
+        } else {
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">            if (index &gt;= input.length()) {</span>
+<span class="nc" id="L41">                csv.lista.add(new NumberField(Integer.parseInt(buffer.toString())));</span>
+<span class="nc" id="L42">                csv.setEstado(Estado_Inicial.getInstancia());</span>
+<span class="nc" id="L43">                csv.Interpretar(input);</span>
+            } else {
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">                if (!Character.isDigit(aux)) {</span>
+<span class="fc" id="L46">                    throw new IllegalArgumentException(&quot;ERROR: número incorrecto&quot;);</span>
+                }
+            }
+        }
+<span class="fc" id="L50">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
